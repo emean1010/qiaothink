@@ -1,10 +1,36 @@
 {% extends "topic/base.html" %}
 {% block title %}发送邮件{% endblock%}
+{% block css %}
+    <link href="/static/css/style-mail.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+{#    <style>#}
+{#        .mail-content {#}
+{#            padding: 24px 16px;#}
+{#            background-color: #0088cca8;#}
+{#            margin-bottom: 10px;#}
+{#            border-radius: 4px;#}
+{#        }#}
+{#    </style>#}
+{% endblock%}
 {% block main %}
-
-<p>发件人 id: {{ message.sender_id }}</p>
-<p>收件人 id: {{ message.receiver_id }}</p>
-<p>内容</p>
-<p>{{ message.content }}</p>
-
+<div class="suCai17-content">
+<div class="suCai17-background">
+<div class="suCai17-info" style="width: 100%; overflow: auto">
+    <ul>
+        <li>
+            <div class="suCai17-search-input" style="width: 60%; margin: 0 200px 0 200px; border: 10px;">
+                <h2 style="padding: 0 10px 0 10px">发件人： {{ sender.username }}</h2>
+            </div>
+            <div class="suCai17-search-input" style="width: 60%; margin: 0 200px 0 200px; border: 10px;">
+                <h2 style="padding: 0 10px 0 10px">收件人： {{ receiver.username }}</h2>
+            </div>
+            <div class="suCai17-search-input" style="width: 60%; margin: 0 200px 0 200px; border: 10px;">
+                <h2 style="padding: 0 10px 0 10px">内容： {{ message.content }}</h2>
+            </div>
+        </li>
+    </ul>
+</div>
+    </div>
+</div>
 {% endblock %}

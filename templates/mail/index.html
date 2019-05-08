@@ -2,51 +2,111 @@
 {% block title %}发送邮件{% endblock%}
 
 {% block css %}
-{#    <link href="./Submit Button Animation_files/css" rel="stylesheet">#}
-    <link rel="stylesheet prefetch" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="/static/css/style-mail.css">
+    <link href="/static/css/style-mail.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+    <style>
+        .card {
+            padding: 24px 16px;
+            background-color: #0088cca8;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .box {
+            font-size: 30px;
+            line-height: 40px;
+            color: #fff;
+            display: inline;
+            margin-left: 16px;
+        }
+    </style>
 {% endblock%}
 
 {% block main %}
 
-<p>发送邮件</p>
-<form method="post" action="{{ url_for('.add') }}">
-    <input type="text" name="content" placeholder="content">
-    <input type="text" name="title" placeholder="title">
-    <input type="text" name="receiver_id" placeholder="receiver_id">
-    <div class="send-button">
-        <button class="text" type="submit">发送邮件</button>
-{#        <span class="text">send</span>#}
-        <span class="icon-wrapper">
-            <span class="icon-1 ion-paper-airplane"></span>
-            <span class="icon-2 ion-checkmark"></span>
-        </span>
+<div class="suCai17-content">
+    <div class="suCai17-background clearfix">
+        <div class="suCai17-nav hd">
+            <ul class="suCai17-nav-list">
+                <li class="suCai17-item on">
+                    <i class="icon icon-image01"></i>
+                    <span class="suCai17-title">发送邮件</span>
+                </li>
+                <li class="suCai17-item">
+                    <i class="icon icon-image02"></i>
+                    <span class="suCai17-title">收件箱</span>
+                </li>
+                <li class="suCai17-item">
+                    <i class="icon icon-image03"></i>
+                    <span class="suCai17-title">已发送邮件</span>
+                </li>
+            </ul>
+        </div>
+        <div class="suCai17-info bd">
+            <ul style="display:block">
+                <li>
+                    <form method="post" action="{{ url_for('.add') }}">
+                        <div class="suCai17-search-input"><input type="text" name="receiver_name" style="width: 670px;height: 44px; padding: 0 10px 0 10px;" placeholder="接收人"></div>
+                        <div class="suCai17-search-input"><input type="text" name="title" style="width: 670px;height: 44px; padding: 0 10px 0 10px;" placeholder="标题"></div>
+                        <div class="suCai17-search-input"><input type="text" name="content" style="width: 670px;height: 44px; padding: 0 10px 0 10px;" placeholder="正文"></div>
+                        <div class="suCai17-search-btn"><button type="text" type="submit" style="width: 122px;height: 44px; border:0; background-color: #2698e4;">发送邮件</button></div>
+                    </form>
+                </li>
+            </ul>
+            <ul style="display: none;">
+                <li>
+                    {% if received %}
+                        {% for r in received %}
+                        <div class="card" >
+                            <div class="box">
+                                <a href="{{ url_for('.view', id = r.id) }}"> {{ r.title }}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <img src="/static/img/fish.png">
+                        </div>
+                    {% endif %}
+                </li>
+            </ul>
+            <ul style="display: none;">
+                <li>
+                    {% if send %}
+                        {% for s in send %}
+                        <div class="card" >
+                            <div class="box">
+                                <a href="{{ url_for('.view', id = s.id) }}"> {{ s.title }}</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div>
+                            <img src="/static/img/fish.png">
+                        </div>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
     </div>
-</form>
-
-<p>收到邮件</p>
-{% for r in received %}
-    <div>
-        <a href="{{ url_for('.view', id = r.id) }}"> {{ r.title }}</a>
-    </div>
-{% endfor %}
-
-<p>发送邮件</p>
-{% for s in send %}
-    <div>
-        <a href="{{ url_for('.view', id = s.id) }}"> {{ s.title }}</a>
-    </div>
-{% endfor %}
-
-<div class="send-button">
-    <span class="text">send</span>
-    <span class="icon-wrapper">
-        <span class="icon-1 ion-paper-airplane"></span>
-        <span class="icon-2 ion-checkmark"></span>
-    </span>
 </div>
 
-<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="/static/js/index-mail.js"></script>
+<script type="text/javascript">
 
+    jQuery(".suCai17-background").slide({
+        autoPlay: false,
+        trigger: "click",
+        easing: "easeOutCirc",
+        delayTime: 1000
+    });
+
+    jQuery(".suCai17-side").slide({
+        titCell:"h3",
+        targetCell:"ul",
+        defaultIndex:1,
+        effect:"slideDown",
+        trigger:"click"
+    });
+
+</script>
 {% endblock %}

@@ -29,13 +29,13 @@ def generate_fake_date():
         username='abc',
         password='123',
     )
-    u = User.register(form)
+    u, result = User.register(form)
 
     form = dict(
         username='emean',
         password='123',
     )
-    u = User.register(form)
+    u, result = User.register(form)
 
     form = dict(
         title='all'

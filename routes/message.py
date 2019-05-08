@@ -19,12 +19,12 @@ mail = flask_mail.Mail()
 @main.route("/add", methods=["POST"])
 def add():
     form = request.form.to_dict()
-    form['receiver_id'] = int(form['receiver_id'])
     u = current_user()
     form['sender_id'] = u.id
 
     # 发邮件
-    r = User.one(id=form['receiver_id'])
+    r = User.one(username=form['receiver_name'])
+    form['receiver_id'] = r.id
     m = flask_mail.Message(
         subject=form['title'],
         body=form['content'],
@@ -58,6 +58,8 @@ def view(id):
     u = current_user()
     # if u.id == mail.receiver_id or u.id == mail.sender_id:
     if u.id in [message.receiver_id, message.sender_id]:
-        return render_template('mail/detail.html', message=message)
+        s = User.one(id=message.sender_id)
+        r = User.one(id=message.receiver_id)
+        return render_template('mail/detail.html', message=message, sender=s,receiver=r)
     else:
         return redirect(url_for('.index'))
