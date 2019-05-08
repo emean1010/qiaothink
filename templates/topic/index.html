@@ -1,0 +1,110 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>bbs club</title>-->
+    <!--<link rel="stylesheet" href="/static/css/bootstrap.min.css">-->
+    <!--<link rel="stylesheet" href="/static/css/style.css">-->
+<!--</head>-->
+<!--<body>-->
+{% extends "topic/base.html" %}
+{% block title %}论坛主页{% endblock%}
+{% block a %}<a href="{{ url_for('index.user_detail', username = user.username) }}">动态</a>{% endblock %}
+{% block main %}
+
+<div id="main">
+    <div id="sidebar">
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">个人信息</span>
+            </div>
+            <div class="inner">
+                <div class="user_card">
+                    <div>
+                        <img src="{{ user.image }}">
+                        <span class="user_name">
+                            <a class="dark" href="{{ url_for('index.user_detail', username = user.username) }}">
+                                {{ user.username }}
+                            </a>
+                        </span>
+                        <div class="space clearfix"></div>
+                        <span class="signature">
+                        {{ user.signature }}
+                        </span>
+                    </div>
+                </div>
+                <div class="time" style="margin-top: 17px;">
+                    <div style="width:180px; height:74px; margin:-20px auto 10px auto; overflow:hidden;">
+                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="200" height="88">
+                    <param name="movie" value="https://c.laomo.me/img/clock.swf">
+                    <param name="quality" value="high">
+                    <param name="wmode" value="transparent">
+                    <embed src="https://c.laomo.me/img/clock.swf" quality="high" wmode="transparent" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="200" height="88">
+                    </object>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="inner">
+                <a href="/topic/new?board_id={{ bid }}" class="create_topic_btn">
+                    <span class="span-success">发布话题</span>
+                </a>
+            </div>
+            <div class="inner">
+                <a href="/board/admin" class="add_board">
+                    <span class="span-success">添加板块</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div id="content">
+        <div class="panel">
+            <div class="header">
+                <a href="/topic"
+                   class="topic-tab current-tab">
+                    全部的帖子
+                </a>
+
+                {% for b in bs %}
+                <a href="/topic?board_id={{ b.id }}"
+                   class="topic-tab current-tab">
+                    {{ b.title }}
+                </a>
+                {% endfor %}
+            </div>
+            <div class="inner post">
+                <div class="topic_list">
+                    {% for t in ms %}
+                    <div class="cell">
+                        <div class="topic_title_wrapper">
+                            <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
+                                {{ t.title }}
+                            </a>
+                            <span>{{ t.replies() | count }} / {{ t.views }}</span>
+                            <!--<a class="topic_title" href="{{ url_for('topic.delete', id=t.id) }}">-->
+                            <a class="topic_title" href="{{ url_for('topic.delete', id=t.id, token=token) }}">
+                                删除
+                            </a>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  (function () {
+    var editor = new Editor();
+    editor.render($('.editor')[0]);
+  })();
+
+</script>
+
+{% endblock %}
+
+
+<!--</body>-->
+<!--</html>-->

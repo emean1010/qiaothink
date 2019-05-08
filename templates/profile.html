@@ -1,0 +1,212 @@
+{% extends "topic/base.html" %}
+{% block title %}论坛主页{% endblock%}
+{% block a %}<a href="{{ url_for('index.user_detail', username = user.username) }}">动态</a>{% endblock %}
+{% block main %}
+
+<div id="main">
+    <div id="sidebar">
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">个人信息</span>
+            </div>
+            <div class="inner">
+                <div class="user_card">
+                    <div>
+                        <img src="{{ user.image }}" width="100px" height="100px">
+                        <span class="user_name">
+                            <a class="dark" href="{{ url_for('index.user_detail', username = user.username) }}">
+                                {{ user.username }}
+                            </a>
+                        </span>
+                        <div class="space clearfix"></div>
+                        <span class="signature">
+                        " {{ user.signature }} "
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="panel">
+            <div class="inner">
+                <a href="{{ url_for('topic.new') }}" class="create_topic_btn">
+                    <span class="span-success">发布话题</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="content">
+        <div class="panel">
+            <div class="header">
+                <ul class="breadcrumb">
+                    <li><a href="{{ url_for('topic.index') }}">主页</a><span class="divider">/</span></li>
+                </ul>
+            </div>
+            <div class="inner userinfo">
+                <div class="user_big_avatar">
+                    <img src="{{ user.image }}">
+                </div>
+                <a class="dark">{{ user.username }}</a>
+                <p class="col_fade">注册时间：{{ user.created_time | format_time }}</p>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">最近创建的话题</span>
+            </div>
+            <div class="inner">
+                <div class="topic_list">
+                {% for t in creat_topics %}
+                    <div class="cell">
+                    <div class="topic_title_wrapper">
+                        <a class="user_avatar" href="{{ url_for('topic.index') }}">
+                            <img src="{{ user.image }}">
+                        </a>
+                        <span class="reply_count pull-left">
+                        <span class="count_of_replies" title="回复数">
+                            {{ t.replies() | count }}
+                        </span>
+                        <span class="count_seperator">/</span>
+                        <span class="count_of_visits" title="点击数">
+                            {{ t.views }}
+                        </span>
+                        </span>
+                            <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
+                                {{ t.title }}
+                                创建时间：{{ t.created_time | format_time }}
+                            </a>
+                        {% set r = t.last_reply() %}
+                            {%  if r == None %}
+                                <a class='dark reply_author'>
+                                    最新回复：{{ r }}
+                                </a>
+                            {% else %}
+                                <span class='cell reply_area reply_item'>
+                                    <a class='dark reply_author'>
+                                        最新回复：{{ r.user().username }}
+                                    </a>
+                                    <a class="reply_time">
+                                        <span class="emean-time" data-created_time="{{ r.created_time }}"></span>
+                                    </a>
+                                </span>
+                            {% endif %}
+                    </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="header">
+            <span class="col_fade">最近参与的话题</span>
+            </div>
+
+            <div class="inner">
+            {% for t in reply_topics %}
+                <div class="cell">
+                    <div class="topic_title_wrapper">
+                        <a class="user_avatar" href="{{ url_for('topic.index') }}">
+                            <img src="{{ user.image }}">
+                        </a>
+                        <span class="reply_count pull-left">
+                        <span class="count_of_replies" title="回复数">
+                            {{ t.replies() | count }}
+                        </span>
+                        <span class="count_seperator">/</span>
+                        <span class="count_of_visits" title="点击数">
+                            {{ t.views }}
+                        </span>
+                        </span>
+                        <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }}">
+                            {{ t.title }}
+                        </a>
+                        {% set r = t.last_reply() %}
+                            {%  if r == None %}
+                                <a class='dark reply_author'>
+                                    最新回复：{{ r }}
+                                </a>
+                            {% else %}
+                                <span class='cell reply_area reply_item'>
+                                    <a class='dark reply_author'>
+                                        最新回复：{{ r.user().username }}
+                                        回复时间：{{ r.created_time | format_time }}
+                                    </a>
+                                    <a class="reply_time">
+                                        <span class="emean-time" data-created_time="{{ r.created_time }}"></span>
+                                    </a>
+                                </span>
+                            {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="https://cdn.bootcss.com/marked/0.3.19/marked.min.js"></script>
+<script src="https://cdn.bootcss.com/prism/1.13.0/prism.js"></script>
+<script src="https://cdn.bootcss.com/prism/1.13.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+<script>
+    var e = function (sel) {
+        return document.querySelector(sel)
+    }
+
+    var es = function (sel) {
+        return document.querySelectorAll(sel)
+    }
+
+    var markContents = function () {
+        // markdown -> html 的处理放在高亮前面
+        // 因为高亮是针对 html 格式的
+        // lang -> language 不需要转 prism 自动转了
+        var contentDivs = es('.markdown-text')
+        for (var i = 0; i < contentDivs.length; i++) {
+            var contentDiv = contentDivs[i]
+            console.log('pre marked', contentDiv.textContent, contentDiv.innerHTML)
+            var content = marked(contentDiv.textContent)
+            console.log('after marked', content)
+            contentDiv.innerHTML = content
+        }
+    }
+
+    var highlight = function () {
+        // 自动加载对应的语言 不然要手动加入各个语言的 js
+        Prism.plugins.autoloader.languages_path = 'https://cdn.bootcss.com/prism/1.13.0/components/'
+    }
+
+    var registerTimer = function () {
+        setInterval(function () {
+            var times = es('.emean-time')
+            for (var i = 0; i < times.length; i++) {
+                var t = times[i]
+                var time = Number(t.dataset.created_time)
+                var now = Math.floor(new Date() / 1000)
+                var delta_s = now - time
+                var delta_m = Math.floor((now - time) / 60)
+                var delta_h = Math.floor((now - time) / 3600)
+                var delta_d = Math.floor((now - time) / 3600 / 24)
+                var s = `${delta_d} 天前， ${delta_h} 小时前， ${delta_m} 分钟前， ${delta_s} 秒前`
+                t.innerText = s
+            }
+        }, 1000)
+    }
+
+    var __main = function () {
+        markContents()
+        highlight()
+        registerTimer()
+    }
+
+    __main()
+
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QiaoThink 个人论坛</title>
+    <link rel="icon" href="/static/img/Q.png" />
+    <link rel="bookmark" href="/static/img/Q.png" />
+    <link rel="stylesheet" href="/static/css/index-min.css">
+    <link rel="stylesheet" href="/static/css/style-index.css">
+</head>
+<body>
+    <h2>QiaoThink 个人论坛</h2>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="post" action="{{ url_for('.register') }}">
+                <h1>注册</h1>
+                <input type="text" name="username" placeholder="名称">
+                <input type="password" name="password" placeholder="密码">
+                <button>注册</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post" action="{{ url_for('.login') }}">
+                <h1>登录</h1>
+                <input type="text" name="username" placeholder="用户名">
+                <input type="password" name="password" placeholder="密码">
+                <button>登录</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>欢迎访问！</h1>
+                    <p>请您先登录。</p>
+                    <button class="ghost" id="signIn">登录</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    {% if result %}
+                        <p>{{ result }}</p>
+                    {% else %}
+                        <h1>你好朋友！</h1>
+                        <p>输入您的个人信息注册成为会员。</p>
+                        <p>您也可以使用测试账号。</p>
+                        <p>测试账号：abc &nbsp;&nbsp;密码：123</p>
+                    {% endif %}
+                    <button class="ghost" id="signUp">注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/index.js"></script>
+</body>
+</html>
