@@ -1,14 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>board admin</title>
-</head>
-<body>
-    <form action="/board/add" method="post">
-        <input name="title">
-        <br>
-        <button>add</button>
-    </form>
-</body>
-</html>
+{% extends "topic/base.html" %}
+{% block title %}添加板块{% endblock %}
+{% block css %}
+    <link href="/static/css/style-mail.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.js"></script>
+{% endblock %}
+{% block main %}
+    <div class="suCai17-content">
+        <div class="suCai17-info bd">
+            <ul style="display:block">
+                <li>
+                    <form method="post" action="/board/add">
+                        <div class="suCai17-search-input"><input type="text" name="title"
+                                                                 style="width: 670px;height: 44px; padding: 0 10px 0 10px;"
+                                                                 placeholder="板块名称"></div>
+                        <div class="suCai17-search-btn">
+                            <button type="text" type="submit"
+                                    style="width: 122px;height: 44px; border:0; background-color: #2698e4;">添加板块
+                            </button>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
