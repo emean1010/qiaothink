@@ -1,6 +1,9 @@
 # QiaoThink
 基于 Flask 实现的个人论坛
 
+## 使用
+[![](https://img.shields.io/badge/QiaoThink-个人论坛-green.svg)](https://github.com/emean1010/qiaothink)
+
 首页提供测试账号登录
 > 账号：abc
 > 密码：123
