@@ -2,7 +2,15 @@
 基于 Flask 实现的个人论坛
 
 ## 使用
-[![](https://img.shields.io/badge/QiaoThink-个人论坛-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/Flask-1.0.2-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/Jinja-2.10-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/SQLAlchemy-1.3.2-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/Celery-4.3.0-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/Redis-5.0.4-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/Supervisor-4.0.2-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/Nginx-1.16.0-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/Gunicorn-19.9.0-green.svg)](https://github.com/emean1010/qiaothink)
+[![](https://img.shields.io/badge/QiaoThink-个人论坛-orange.svg)](https://github.com/emean1010/qiaothink)
 
 首页提供测试账号登录
 > 账号：abc
