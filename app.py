@@ -10,7 +10,7 @@ from routes.index import main as index_routes
 from routes.topic import main as topic_routes
 from routes.reply import main as reply_routes
 from routes.board import main as board_routes
-from routes.message import main as mail_routes, mail
+from routes.message import main as mail_routes
 
 
 def count(input):
@@ -45,12 +45,12 @@ def configured_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
-    app.config['MAIL_SERVER'] = 'smtp.exmail.qq.com'
-    app.config['MAIL_PORT'] = 465
-    app.config['MAIL_USE_SSL'] = True
-    app.config['MAIL_USERNAME'] = config.admin_mail
-    app.config['MAIL_PASSWORD'] = secret.mail_password
-    mail.init_app(app)
+    # app.config['MAIL_SERVER'] = 'smtp.exmail.qq.com'
+    # app.config['MAIL_PORT'] = 465
+    # app.config['MAIL_USE_SSL'] = True
+    # app.config['MAIL_USERNAME'] = config.admin_mail
+    # app.config['MAIL_PASSWORD'] = secret.mail_password
+    # mail.init_app(app)
 
     register_routes(app)
     return app

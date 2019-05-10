@@ -10,10 +10,9 @@ from flask import (
 from routes import *
 
 from models.message import Messages
-from config import admin_mail
+from tasks import send_async
 
 main = Blueprint('mail', __name__)
-mail = flask_mail.Mail()
 
 
 @main.route("/add", methods=["POST"])
@@ -24,16 +23,22 @@ def add():
 
     # 发邮件
     r = User.one(username=form['receiver_name'])
-    form['receiver_id'] = r.id
-    m = flask_mail.Message(
-        subject=form['title'],
-        body=form['content'],
-        sender=admin_mail,
-        recipients=[r.email]
-    )
-    mail.send(m)
+    # form['receiver_id'] = r.id
+    # m = flask_mail.Message(
+    #     subject=form['title'],
+    #     body=form['content'],
+    #     sender=admin_mail,
+    #     recipients=[r.email]
+    # )
+    # mail.send(m)
 
-    Messages.new(form)
+    # Messages.new(form)
+    Messages.send(
+        title=form['title'],
+        content=form['content'],
+        sender_id=u.id,
+        receiver_id=r.id,
+    )
     return redirect(url_for('.index'))
 
 
