@@ -1,7 +1,7 @@
 # QiaoThink
 基于 Flask 实现的个人论坛
 
-# 部署
+## 部署
 + 代码仓库：https://github.com/emean1010/qiaothink
 + 论坛网址：http://qiaothink.com
 + 首页提供测试账号登录：
