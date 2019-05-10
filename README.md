@@ -1,6 +1,13 @@
 # QiaoThink
 基于 Flask 实现的个人论坛
 
+# 部署
++ 代码仓库：https://github.com/emean1010/qiaothink
++ 论坛网址：http://qiaothink.com
++ 首页提供测试账号登录：
+    + 账号：abc
+    + 密码：123
+
 ## 使用
 [![](https://img.shields.io/badge/Flask-1.0.2-green.svg)](https://github.com/emean1010/qiaothink)
 [![](https://img.shields.io/badge/Jinja-2.10-green.svg)](https://github.com/emean1010/qiaothink)
@@ -11,10 +18,6 @@
 [![](https://img.shields.io/badge/Nginx-1.16.0-green.svg)](https://github.com/emean1010/qiaothink)
 [![](https://img.shields.io/badge/Gunicorn-19.9.0-green.svg)](https://github.com/emean1010/qiaothink)
 [![](https://img.shields.io/badge/QiaoThink-个人论坛-orange.svg)](https://github.com/emean1010/qiaothink)
-
-首页提供测试账号登录
-> 账号：abc
-> 密码：123
 
 ## 注册/登录 ##
 ![](https://github.com/emean1010/qiaothink/blob/master/gif/login.gif)
