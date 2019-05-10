@@ -18,7 +18,7 @@ ufw -f enable
 
 # 装依赖
 apt-get install -y git supervisor nginx python3-pip mysql-server redis-server
-pip3 install jinja2 flask gevent gunicorn pymysql flask_sqlalchemy flask_mail redis
+pip3 install jinja2 flask gevent gunicorn pymysql flask_sqlalchemy flask_mail redis celery marrow.mailer
 
 # 删除测试用户和测试数据库
 # 删除测试用户和测试数据库并限制关闭公网访问
